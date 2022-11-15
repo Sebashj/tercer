@@ -1,8 +1,10 @@
 package Vista;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -27,8 +29,9 @@ import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
-public class valumno extends JFrame {
+public class valumno extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JLabel lblid;
@@ -70,7 +73,7 @@ public class valumno extends JFrame {
 	}
 
 	public valumno() {
-		setLocationRelativeTo(null);
+		//setLocationRelativeTo(null);
 		setTitle("CRUDALUMNO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 435, 463);
@@ -114,6 +117,8 @@ public class valumno extends JFrame {
 		contentPane.add(txtnombre);
 		
 		btnAgregar = new JButton("Agregar");
+		btnAgregar.setIcon(new ImageIcon(valumno.class.getResource("/Img/colores.PNG")));
+		
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -144,8 +149,15 @@ public class valumno extends JFrame {
 		contentPane.add(btnAgregar);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setIcon(new ImageIcon(valumno.class.getResource("/Img/rojo.PNG")));
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Image a = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Img/usuario.PNG"));
+
+				int ancho = btnEliminar.getWidth();
+				int alto = btnEliminar.getHeight();
+				
+				btnEliminar.setIcon(new ImageIcon(a.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
 				try {
 					int opcion =JOptionPane.showConfirmDialog(null , "Estas seguro de eliminar");
 					if(opcion==0) {
@@ -167,6 +179,7 @@ public class valumno extends JFrame {
 		contentPane.add(btnEliminar);
 		
 		btnBorrar = new JButton("borrar");
+		btnBorrar.setIcon(new ImageIcon(valumno.class.getResource("/Img/naranga.PNG")));
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiar();
@@ -177,8 +190,15 @@ public class valumno extends JFrame {
 		contentPane.add(btnBorrar);
 		
 		btnEditar = new JButton("editar");
+		btnEditar.setIcon(new ImageIcon(valumno.class.getResource("/Img/azul.PNG")));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Image a = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Img/usuario.PNG"));
+
+				int ancho = btnEditar.getWidth();
+				int alto = btnEditar.getHeight();
+				
+				btnEditar.setIcon(new ImageIcon(a.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH)));
 				try {
 					if(txtcorreo.getText().equals("")||cboGrupo.getSelectedItem().equals("")||txtnombre.getText().equals("")||cboSemestre.getSelectedItem().equals("")) {
 						JOptionPane.showMessageDialog(null, "campos vacios");
