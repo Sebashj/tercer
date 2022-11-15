@@ -1,14 +1,10 @@
-package Vista;
+package Modelo;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import Dao.DaoUsuario;
-import Modelo.Usuario;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -33,7 +29,6 @@ public class vLogin extends JFrame {
 	private JButton btnentrada;
 	private JPasswordField txtpassword;
 	private JLabel btnlogo;
-	DaoUsuario dao=new DaoUsuario();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -85,17 +80,9 @@ public class vLogin extends JFrame {
 		btnentrada = new JButton("Entrada");
 		btnentrada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario user =new Usuario();
-				user.setUser(txtusuario.getText());
-				user.setPassword(String.valueOf(txtpassword.getPassword()));
-				if(dao.loginUsuario(user)) {
-				JOptionPane.showMessageDialog(null, "Bienvenido");
-				vCargando cargando=new vCargando();
-				setVisible(false);
-				cargando.setVisible(true);
-				}else {
-					JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");
-				}
+				String usuario = txtusuario.getText();
+				String password = String.valueOf(txtpassword.getPassword());
+				JOptionPane.showMessageDialog(null, "usuario: " + usuario + "\nPassword: " + password);
 			}
 		});
 		btnentrada.setBounds(33, 175, 85, 21);

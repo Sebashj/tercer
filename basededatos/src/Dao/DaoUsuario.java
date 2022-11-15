@@ -55,6 +55,27 @@ public class DaoUsuario {
 		return lista;
 		
 	}
+	
+	public boolean loginUsuario(Usuario user) {
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		try {
+			ps=cx.conectar().prepareStatement("SELECT * FROM usuario WHERE user=? AND password=?");
+			ps.setString(1, user.getUser());
+			ps.setString(2, convertirSHA256(user.getPassword()));
+			rs=ps.executeQuery();
+			if(rs.next()) {
+			return true;
+			}else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
 	public boolean eliminarUsuario(int id) {
 		PreparedStatement ps=null;
 		try {
@@ -107,5 +128,6 @@ public class DaoUsuario {
 		    
 		return sb.toString();
 	}
+	
 
 }

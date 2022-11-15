@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Vista.vPrincipal;
+
 import javax.swing.JProgressBar;
 
 public class vCargando extends JFrame {
@@ -39,8 +42,9 @@ public class vCargando extends JFrame {
 						e.printStackTrace();
 					}
 					if (i == 100) {
-						JOptionPane.showMessageDialog(null, "Ya termino");
-						System.exit(0);
+						setVisible(false);
+						vPrincipal p=new vPrincipal();
+						p.setVisible(true);
 					}
 				}
 			}
