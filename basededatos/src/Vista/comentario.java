@@ -14,8 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Dao.DaoUsuario;
-import Modelo.Usuario;
+import Dao.daocomentarios;
+import Modelo.comentarios;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -27,31 +27,30 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
 
-public class vUsuario extends JFrame {
+public class comentario extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblid;
 	private JTextField txtuser;
-	private JTextField txtPassword;
-	private JTextField txtnombre;
+	private JTextField txttexto;
 	private JButton btnAgregar;
 	private JButton btnEliminar;
 	private JButton btnEditar;
 	private JButton btnBorrar;
-	DaoUsuario dao=new DaoUsuario();
+	daocomentarios dao=new daocomentarios();
 	DefaultTableModel modelo=new DefaultTableModel();
 	private JScrollPane scrollPane;
 	private JTable tblusuario;
-	ArrayList<Usuario> lista = new ArrayList<Usuario>();
+	ArrayList<comentarios> lista = new ArrayList<comentarios>();
 	int fila=-1;
-	Usuario usuario;
+	comentarios comentarios;
 	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					vUsuario frame = new vUsuario();
+					comentario frame = new comentario();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,11 +62,10 @@ public class vUsuario extends JFrame {
 	public void limpiar() {
 		lblid.setText("");
 		txtuser.setText("");
-		txtPassword.setText("");
-		txtnombre.setText("");
+		txttexto.setText("");
 	}
 
-	public vUsuario() {
+	public comentario() {
 		setLocationRelativeTo(null);
 		setTitle("CRUDUSUARIO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,10 +87,6 @@ public class vUsuario extends JFrame {
 		lblid.setBounds(73, 26, 86, 23);
 		contentPane.add(lblid);
 		
-		JLabel lblNewLabel_1 = new JLabel("Password");
-		lblNewLabel_1.setBounds(202, 26, 104, 23);
-		contentPane.add(lblNewLabel_1);
-		
 		txtuser = new JTextField();
 		txtuser.setBounds(73, 60, 86, 20);
 		contentPane.add(txtuser);
@@ -102,33 +96,27 @@ public class vUsuario extends JFrame {
 		lblNewLabel_1_1.setBounds(10, 60, 53, 23);
 		contentPane.add(lblNewLabel_1_1);
 		
-		txtPassword = new JTextField();
-		txtPassword.setColumns(10);
-		txtPassword.setBounds(332, 27, 86, 20);
-		contentPane.add(txtPassword);
-		
-		JLabel lblNewLabel_1_2 = new JLabel("Nombre");
+		JLabel lblNewLabel_1_2 = new JLabel("Text");
 		lblNewLabel_1_2.setBounds(202, 60, 53, 23);
 		contentPane.add(lblNewLabel_1_2);
 		
-		txtnombre = new JTextField();
-		txtnombre.setColumns(10);
-		txtnombre.setBounds(332, 60, 86, 20);
-		contentPane.add(txtnombre);
+		txttexto = new JTextField();
+		txttexto.setColumns(10);
+		txttexto.setBounds(332, 60, 86, 20);
+		contentPane.add(txttexto);
 		
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(txtuser.getText().equals("")||txtPassword.getText().equals("")||txtnombre.getText().equals("")) {
+					if(txtuser.getText().equals("")||txttexto.getText().equals("")) {
 						JOptionPane.showMessageDialog(null, "campos vacios");
 						return;
 					}
-					Usuario user=new Usuario();
-					user.setUser(txtuser.getText());
-					user.setPassword(txtPassword.getText());
-					user.setNombre(txtnombre.getText());
-					if (dao.insertarUsuario(user)) {
+					comentarios user=new comentarios();
+					user.setUsuario(txtuser.getText());
+					user.setTexto(txttexto.getText());
+					if (dao.insertarcomentarios(user)) {
 						refrescarTabla();
 						limpiar();
 						JOptionPane.showMessageDialog(null, "Se agrego correctamente");
@@ -150,7 +138,7 @@ public class vUsuario extends JFrame {
 				try {
 					int opcion =JOptionPane.showConfirmDialog(null , "Estas seguro de eliminar");
 					if(opcion==0) {
-					if (dao.eliminarUsuario(lista.get(fila).getId())) {
+					if (dao.eliminarcomentarios(lista.get(fila).getId())) {
 						refrescarTabla();
 						limpiar();
 						JOptionPane.showMessageDialog(null, "Se elimino correctamente");
@@ -181,14 +169,13 @@ public class vUsuario extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(txtuser.getText().equals("")||txtPassword.getText().equals("")||txtnombre.getText().equals("")) {
+					if(txtuser.getText().equals("")||txttexto.getText().equals("")) {
 						JOptionPane.showMessageDialog(null, "campos vacios");
 						return;
 					}
-					usuario.setUser(txtuser.getText());
-					usuario.setPassword(txtPassword.getText());
-					usuario.setNombre(txtnombre.getText());
-					if (dao.editarUsuario(usuario)) {
+					comentarios.setUsuario(txtuser.getText());
+					comentarios.setTexto(txttexto.getText());
+					if (dao.editarcomentarios(comentarios)) {
 						refrescarTabla();
 						limpiar();
 						JOptionPane.showMessageDialog(null, "Se edito correctamente");
@@ -213,11 +200,10 @@ public class vUsuario extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				fila=tblusuario.getSelectedRow();
-				usuario=lista.get(fila);
+				comentarios=lista.get(fila);
 				lblid.setText(""+lista.get(fila).getId());
-				txtuser.setText(""+usuario.getUser());
-				txtPassword.setText(""+usuario.getPassword());
-				txtnombre.setText(""+usuario.getNombre());
+				txtuser.setText(""+comentarios.getUsuario());
+				txttexto.setText(""+comentarios.getTexto());
 				
 			}
 		});
@@ -236,8 +222,7 @@ public class vUsuario extends JFrame {
 		
 		modelo.addColumn("ID");
 		modelo.addColumn("USERT");
-		modelo.addColumn("PASSWORD");
-		modelo.addColumn("NOMBRE");
+		modelo.addColumn("TEXTO");
 		tblusuario.setModel(modelo);
 		refrescarTabla();
 	}
@@ -246,12 +231,11 @@ public class vUsuario extends JFrame {
 		modelo.removeRow(0);
 		}
 		lista=dao.fetchUsuarios();
-		for(Usuario u: lista) {
-			Object o[]=new Object [4];
+		for(comentarios u: lista) {
+			Object o[]=new Object [3];
 			o[0]=u.getId();
-			o[1]=u.getUser();
-			o[2]=u.getPassword();
-			o[3]=u.getNombre();
+			o[1]=u.getUsuario();
+			o[2]=u.getTexto();
 			modelo.addRow(o);
 		}
 		tblusuario.setModel(modelo);

@@ -44,9 +44,6 @@ public class vPrincipal extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public vPrincipal() {
 		setTitle("SISTEMA POS");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

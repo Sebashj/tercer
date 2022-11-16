@@ -279,7 +279,7 @@ public class valumno extends JInternalFrame {
 		contentPane.add(cboSemestre);
 		
 		cboGrupo = new JComboBox();
-		cboGrupo.setModel(new DefaultComboBoxModel(new String[] {"105", "205", "305", "405", "505", "605"}));
+		cboGrupo.setModel(new DefaultComboBoxModel(new String[] {"105", "205", "312", "405", "505", "605"}));
 		cboGrupo.setBounds(297, 26, 76, 22);
 		contentPane.add(cboGrupo);
 		refrescarTabla();
