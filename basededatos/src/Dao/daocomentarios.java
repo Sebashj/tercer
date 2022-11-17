@@ -21,8 +21,8 @@ public class daocomentarios {
 		PreparedStatement ps=null;
 		try {
 			ps=cx.conectar().prepareStatement("INSERT INTO comentarios VALUES(null,?,?)");
-			ps.setString(1, user.getTexto());
-			ps.setString(3, user.getUsuario());
+			ps.setString(1, user.getUsuario());
+			ps.setString(2, user.getTexto());
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -43,7 +43,7 @@ public class daocomentarios {
 				comentarios u=new comentarios();
 				u.setId(rs.getInt("ID"));
 				u.setTexto(rs.getString("texto"));
-				u.setUsuario(rs.getString("texto"));
+				u.setUsuario(rs.getString("usuario"));
 				lista.add(u);
 			}
 		} catch (SQLException e) {
@@ -72,9 +72,9 @@ public class daocomentarios {
 	public boolean editarcomentarios(comentarios user) {
 		PreparedStatement ps=null;
 		try {
-			ps=cx.conectar().prepareStatement("UPDATE comentarios SET text=?, usuario=? WHERE id=?");
-			ps.setString(1, user.getTexto());
-			ps.setString(2, user.getUsuario());
+			ps=cx.conectar().prepareStatement("UPDATE comentarios SET texto=?, usuario=? WHERE id=?");
+			ps.setString(1, user.getUsuario());
+			ps.setString(2, user.getTexto());
 			ps.setInt(3, user.getId());
 			ps.executeUpdate();
 			return true;

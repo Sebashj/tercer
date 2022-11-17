@@ -114,8 +114,8 @@ public class comentario extends JFrame {
 						return;
 					}
 					comentarios user=new comentarios();
-					user.setUsuario(txtuser.getText());
 					user.setTexto(txttexto.getText());
+					user.setUsuario(txtuser.getText());
 					if (dao.insertarcomentarios(user)) {
 						refrescarTabla();
 						limpiar();
@@ -136,7 +136,7 @@ public class comentario extends JFrame {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int opcion =JOptionPane.showConfirmDialog(null , "Estas seguro de eliminar");
+					int opcion =JOptionPane.showConfirmDialog(null , "Estas seguro de eliminar","ELIMINAR",JOptionPane.YES_NO_OPTION);
 					if(opcion==0) {
 					if (dao.eliminarcomentarios(lista.get(fila).getId())) {
 						refrescarTabla();
@@ -169,7 +169,7 @@ public class comentario extends JFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if(txtuser.getText().equals("")||txttexto.getText().equals("")) {
+					if(txttexto.getText().equals("")||txtuser.getText().equals("")) {
 						JOptionPane.showMessageDialog(null, "campos vacios");
 						return;
 					}
@@ -234,8 +234,8 @@ public class comentario extends JFrame {
 		for(comentarios u: lista) {
 			Object o[]=new Object [3];
 			o[0]=u.getId();
-			o[1]=u.getUsuario();
-			o[2]=u.getTexto();
+			o[1]=u.getTexto();
+			o[2]=u.getUsuario();
 			modelo.addRow(o);
 		}
 		tblusuario.setModel(modelo);
